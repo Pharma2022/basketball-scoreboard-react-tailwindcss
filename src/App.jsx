@@ -6,6 +6,8 @@ import './App.css'
 import { nanoid } from 'nanoid'
 import ResetBtn from './components/ResetBtn'
 import { colors } from './consts'
+import ScoreBtnContainer from './components/ScoreBtnContainer'
+import TeamContainer from './components/TeamContainer'
 function App() {
 
   const initialScores={homeScore:0,guestScore:0}
@@ -23,25 +25,29 @@ function App() {
 
 
   return (
-    <div className={`bg-[${colors.navy_blue}] h-screen w-full text-white`}>
-      <div className='w-full flex flex-wrap'>
+    <div className={`bg-navy_blue text-light_gray text-center h-screen w-full text-white font-cursedTimer`}>
+      <div className='w-full flex flex-col max-w-md mx-auto [&>*]:w-140px '>
 
-        <div className="team p-4 flex flex-col " >
+        <TeamContainer>
             <Title>Home</Title>
-            <TeamScore>{homeScore}</TeamScore>
-            <div className='flex justify-around'>
+            <TeamScore>
+                {homeScore}
+            </TeamScore>
+            <ScoreBtnContainer>
               {scoreArr.map(item=>(<ScoreBtn key={nanoid()} value={item} onClick={increaseHomeScore}/>))}
-            </div>
-        </div>
-        <div className="team p-4 flex flex-col ">
+            </ScoreBtnContainer>
+        </TeamContainer>
+        <TeamContainer>
            <Title>Guest</Title>
-            <TeamScore>{guestScore}</TeamScore>
-            <div className='flex justify-around'>
+            <TeamScore>
+              {guestScore}
+            </TeamScore>
+            <ScoreBtnContainer>
               {scoreArr.map(item=>(<ScoreBtn key={nanoid()} value={item} onClick={increaseGuestScore}/>))}
-            </div>
-        </div>
+            </ScoreBtnContainer>
+        </TeamContainer>
       </div>
-      <div>
+      <div className='flex items-center justify-center'>
 
         <ResetBtn onClick={resetScore}/>
       </div>

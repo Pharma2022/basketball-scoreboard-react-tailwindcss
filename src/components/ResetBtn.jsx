@@ -3,7 +3,7 @@ import GameBtn from './GameBtn'
 
 const ResetBtn = ({onClick}) => {
   return (
-    <GameBtn onClick={onClick}>ResetBtn</GameBtn>
+    <GameBtn onClick={onClick}>NEW GAME</GameBtn>
   )
 }
 

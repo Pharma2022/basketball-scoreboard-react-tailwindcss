@@ -1,35 +1,48 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import TeamScore from './components/TeamScore'
+import ScoreBtn from './components/ScoreBtn'
+import Title from './components/Title'
 import './App.css'
+import { nanoid } from 'nanoid'
+import ResetBtn from './components/ResetBtn'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const initialScores={homeScore:0,guestScore:0}
+
+  const scoreArr= [1,2,3]
+  const [{homeScore,guestScore},setScore]=useState(initialScores)
+
+  const resetScore=()=>setScore(initialScores)
+
+  const increaseHomeScore=(amount)=>setScore(prev=>({...prev, homeScore: prev.homeScore+amount}))
+  const increaseGuestScore=(amount)=>setScore(prev=>({...prev, guestScore: prev.guestScore+amount}))
+
+
+  const colors={
+    light_blue:`#9AABD8`,
+    navy_blue: `#1B244A`,
+    light_gray:`#eee`,
+    pink_red:`#F94F6D`,
+    blackish: `#080001`,
+  }
+
 
   return (
     <div className="App">
-      <div>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+
+      <div className="team p-4 bg-sky-950 text-white" >
+       <Title>Home</Title>
+       <TeamScore>{homeScore}</TeamScore>
+        {scoreArr.map(item=>(<ScoreBtn key={nanoid()} value={item} onClick={increaseHomeScore}/>))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="team p-4 bg-[#1B244A] text-white">
+       <Title>Guest</Title>
+       <TeamScore>{guestScore}</TeamScore>
+        {scoreArr.map(item=>(<ScoreBtn key={nanoid()} value={item} onClick={increaseGuestScore}/>))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ResetBtn onClick={resetScore}/>
+
     </div>
   )
 }
